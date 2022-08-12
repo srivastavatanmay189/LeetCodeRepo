@@ -11,18 +11,21 @@
  */
 class Solution {
 public:
-    int ans=-1;
-    void check(TreeNode* root, int& k){
-        if(!root){return ;}
-        check(root->left,k);
-        if(k==1){
-            ans = root->val;
-        }
-        k--;
-        check(root->right,k);
+    
+    int count=0;
+    TreeNode* f(TreeNode* root, int k){
+        if(root==NULL)  return NULL;
+        TreeNode* left = f(root->left,k);
+        if(left!=NULL) return left;
+        count++;
+        if(count==k) return root;
+        
+        return f(root->right,k);
     }
+    
+    
     int kthSmallest(TreeNode* root, int k) {
-        check(root,k);
-        return ans;
+        TreeNode* ans = f(root, k);
+        return ans->val;
     }
 };
