@@ -12,17 +12,23 @@
 class Solution {
 public:
     unordered_map<int,int>um;
-    TreeNode* create(vector<int>& pre, vector<int>& in,int ps,int pe,int is,int ie){
-        if(ps>pe){return NULL;}
-        TreeNode* root = new TreeNode(pre[ps]);
-        root->left = create(pre,in,ps+1,ps+um[pre[ps]]-is,is,um[pre[ps]]-1);
-        root->right = create(pre,in,ps+um[pre[ps]]-is+1,pe,um[pre[ps]]+1,ie);
+    TreeNode* find(vector<int>& pre, vector<int>& in, int sp, int ep, int si, int ei){
+        
+        if(sp>ep)return NULL;
+        
+        int ri = um[pre[sp]];
+        
+        TreeNode* root = new TreeNode(pre[sp]);
+        root->left = find(pre, in, sp+1, sp+ri-si, si, ri-1);
+        root->right = find(pre, in, sp+ri-si+1, ep, ri+1, ei);
+        
         return root;
     }
-    TreeNode* buildTree(vector<int>& pre, vector<int>& in) {
-        for(int i=0;i<in.size();i++){
-            um[in[i]] = i;
-        }
-        return create(pre,in,0,pre.size()-1,0,in.size()-1);
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int n = preorder.size();
+        
+        for(int i = 0; i<inorder.size(); i++)
+            um[inorder[i]] = i;
+        return find(preorder, inorder, 0, n-1, 0, n-1);
     }
 };
