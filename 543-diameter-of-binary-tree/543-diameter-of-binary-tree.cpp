@@ -16,15 +16,15 @@ public:
         if(!root)return 0;
         return 1+max(ht(root->left),ht(root->right));
     }
-    int dia(TreeNode* root){
-        if(!root)return 0;
+    pair<int,int> dia(TreeNode* root){
+        if(!root)return {0,0};
         
-        int lh = ht(root->left);
-        int rh = ht(root->right);
+        pair<int,int> lh = dia(root->left);
+        pair<int,int> rh = dia(root->right);
         
-        return max(lh+rh+1,max(dia(root->left),dia(root->right)));
+        return {max(lh.second+rh.second+1,max(lh.first,rh.first)), 1+max(lh.second,rh.second)};
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        return dia(root)-1;
+        return dia(root).first-1;
     }
 };
