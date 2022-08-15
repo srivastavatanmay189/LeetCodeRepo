@@ -12,17 +12,15 @@
 class Solution {
 public:
     long prev = LONG_MIN;
+    
     bool check(TreeNode* root){
-        if(!root){
-            return true;
-        }
-        bool ans = true;
-        ans &= check(root->left);
-        ans &= (root->val>prev);
-        prev = root->val;
-        ans &= check(root->right);
+        if(!root)return true;
         
-        return ans;
+        bool ans = check(root->left);
+        if(!ans || root->val <= prev)return false;
+        prev = root->val;
+        return check(root->right);
+
     }
     bool isValidBST(TreeNode* root) {
         return check(root);
