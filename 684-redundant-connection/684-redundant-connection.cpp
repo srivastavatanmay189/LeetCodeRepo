@@ -26,7 +26,7 @@ public:
             if(p1 == p2){
                 return edges[i];
             }else{
-                updatepar(par, p1<p2?edges[i][0]-1 : edges[i][1]-1, p1<p2?edges[i][1]-1 : edges[i][0]-1);
+                updatepar(par, p1<p2?p1 : p2, p1<p2?edges[i][1]-1 : edges[i][0]-1);
             }
         }
         return {};
