@@ -17,11 +17,10 @@ public:
     }
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
         int n = 0;
-        for(int i = 0; i<edges.size(); i++)n = max(n,max(edges[i][0],edges[i][1]));
+        for(int i = 0; i<edges.size(); i++)n = max(n,max(edges[i][0],edges[i][1]));  
         vector<int>par(n);
         for(int i = 0 ; i<n; i++)par[i] = i;
-        
-        for(int i = 0; i<edges.size(); i++){
+        for(int i = 0; i<edges.size(); i++){   
             int p1 = findpar(par,edges[i][0]-1);
             int p2 = findpar(par,edges[i][1]-1);
             if(p1 == p2){
