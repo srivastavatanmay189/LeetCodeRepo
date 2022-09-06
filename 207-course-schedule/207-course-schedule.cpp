@@ -1,23 +1,30 @@
 class Solution {
 public:
-    bool check(vector<vector<int>>& v, int st, vector<int>& vis){
-        vis[st] = 1;
-        for(auto &x : v[st]){
-            if(vis[x]==1)return false;
-            else if(vis[x]==0 && !check(v,x,vis))return false;
+    
+    bool check(vector<vector<int>>& graph, int sv, vector<int>& vis){
+        if(vis[sv] == 1)return false;
+        vis[sv] = 2;
+        for(auto x : graph[sv]){
+            if(vis[x] == 2 ){
+                return true;
+            }else if(check(graph, x, vis)){
+                return true;
+            }
         }
-        vis[st] = 2;
-        return true;
+        vis[sv] = 1;
+        return false;
     }
     bool canFinish(int n, vector<vector<int>>& pre) {
-        vector<vector<int>>v(n);
-        for(int i = 0  ; i<pre.size(); i++){
-            v[pre[i][0]].push_back(pre[i][1]);
-        }
-        vector<int>vis(n,0);
+        vector<int> vis(n,0);
+        vector<vector<int>>graph(n);
         
+        for(int i = 0; i< pre.size(); i++){
+            graph[pre[i][0]].push_back(pre[i][1]);
+        }
         for(int i = 0 ; i<n; i++){
-          if(vis[i]==0 && !check(v,i,vis))return false;
+            if(!vis[i] && check(graph, i, vis)){
+                return false;
+            }
         }
         return true;
     }
