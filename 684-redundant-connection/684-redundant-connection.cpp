@@ -15,6 +15,8 @@ public:
         par[v2] = v1;
         return;
     }
+    // insted of passing values who are becoming parent pass the parent of those valus
+    // to get better time complexity
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
         int n = 0;
         for(int i = 0; i<edges.size(); i++)n = max(n,max(edges[i][0],edges[i][1]));  
