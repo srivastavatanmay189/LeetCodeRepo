@@ -15,16 +15,24 @@ public:
         vis[sv] = 0;
     }
     
-//     void bfs(vector<vector<pair<int,int>>>& graph, int sv, vector<int>& vis, vector<int>& dist){
-//         priority_queue<pair<int,int>,greater<pair<int,int>>, vector<pair<int,int>>> pq;
+    void bfs(vector<vector<pair<int,int>>>& graph, int sv, vector<int>& vis, vector<int>& dist){
         
-//         pq.push({0,sv});
-//         vis[pq] = 1;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        pq.push({0,sv});
         
-//         while(!pq.empty()){
+        while(!pq.empty()){
+            pair<int,int> t = pq.top();
+            pq.pop();
             
-//         }
-//     }
+            for(int i = 0 ; i<graph[t.second].size() ; i++){
+                if(dist[graph[t.second][i].first] > t.first + graph[t.second][i].second){
+                    dist[graph[t.second][i].first] =  t.first + graph[t.second][i].second;
+                   pq.push({dist[graph[t.second][i].first],graph[t.second][i].first});
+                }
+            }
+        }
+        return ;
+    }
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
         vector<int>dist(n, INT_MAX);
         vector<int>vis(n,0);
@@ -35,7 +43,7 @@ public:
         }
         
         dist[k-1] = 0;
-        dfs(graph,k-1,vis, dist);
+        bfs(graph,k-1,vis, dist);
         
         int ans = -1;
         for(int i= 0; i<n; i++){
