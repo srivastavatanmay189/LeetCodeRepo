@@ -43,6 +43,7 @@ public:
         }
         
         dist[k-1] = 0;
+        //dfs(graph,k-1,vis, dist);
         bfs(graph,k-1,vis, dist);
         
         int ans = -1;
