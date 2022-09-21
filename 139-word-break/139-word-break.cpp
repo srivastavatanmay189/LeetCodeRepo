@@ -1,18 +1,21 @@
 class Solution {
 public:
-    vector<vector<int>>dp;
-    bool check(string& s, int i, int l , unordered_map<string,int>& um){
-        if(i==s.size())return l == 0 || um.find(s.substr(i-l,l)) != um.end();
+    
+    vector<int>dp;
+    bool check(string s, vector<string>& wd, int id){
+        if(id == s.size())return true;
+        if(dp[id] != -1)return dp[id];
         
-        if(dp[i][l] != -1)return dp[i][l];
-        
-        if(um.find(s.substr(i-l,l))!=um.end() && check(s,i+1,1,um))return dp[i][l] = true;
-        return dp[i][l] = check(s,i+1,l+1,um);    
+        for(int i= 0; i<wd.size(); i++){
+            if(id+wd[i].size() <= s.size() && s.substr(id,wd[i].size()) == wd[i]){
+                if(check(s, wd, id+wd[i].size()))return dp[id] =  true;
+            }
+        }
+        return dp[id] = false;
     }
+    
     bool wordBreak(string s, vector<string>& wordDict) {
-        unordered_map<string,int>um;
-        dp = vector<vector<int>>(s.size(),vector<int>(s.size()+1,-1));
-        for(int i = 0; i<wordDict.size(); i++)um[wordDict[i]]++; 
-        return check(s,1,1,um);
+        dp = vector<int>(s.size(), -1);
+        return check(s, wordDict,0);
     }
 };
