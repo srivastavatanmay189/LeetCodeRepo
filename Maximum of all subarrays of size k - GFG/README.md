@@ -1,7 +1,6 @@
 # Maximum of all subarrays of size k
-## Medium 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given an array arr[] of size N and an integer K. Find the maximum for each and every contiguous subarray of size K.</span></p>
+## Medium
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an array arr[] of size N and an integer K. Find the maximum for each and every contiguous subarray of size K.</span></p>
 
 <p><strong><span style="font-size:18px">Example 1:</span></strong></p>
 
@@ -49,5 +48,4 @@ You dont need to read input or print anything. Complete the function <strong>max
 1 ≤ N ≤ 10<sup>7</sup><br>
 1 ≤ K ≤ N<br>
 0 ≤ arr[i] ≤ 10<sup>7</sup></span></p>
- <p></p>
-            </div>
+</div>
